@@ -97,7 +97,7 @@ export const POST = async (req: Request) => {
     ) as TokenInfo;
 
     // Get a Vault Implementation instance
-    const connection = new Connection("YOUR_CHAINSTSTACK_ENDPOINT");
+    const connection = new Connection(process.env.CHAINSTACK_ENDPOINT);
     const vault: VaultImpl = await VaultImpl.create(connection, SOL_TOKEN_INFO);
 
     // Create a transaction based on the action
