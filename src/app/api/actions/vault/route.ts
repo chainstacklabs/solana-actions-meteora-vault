@@ -6,7 +6,7 @@ import {
   createPostResponse,
 } from "@solana/actions";
 
-import { Connection, PublicKey, Transaction } from "@solana/web3.js";
+import { clusterApiUrl, Connection, PublicKey, Transaction } from "@solana/web3.js";
 
 import {
   StaticTokenListResolutionStrategy,
@@ -92,12 +92,10 @@ export const POST = async (req: Request) => {
 
     // Retrieve SOL token information
     const tokenMap = new StaticTokenListResolutionStrategy().resolve();
-    const SOL_TOKEN_INFO = tokenMap.find(
-      (token: { symbol: string }) => token.symbol === "SOL",
-    ) as TokenInfo;
+    const SOL_TOKEN_INFO = tokenMap.find(token => token.symbol === "SOL") as TokenInfo;
 
     // Get a Vault Implementation instance
-    const connection = new Connection(process.env.CHAINSTACK_ENDPOINT);
+    const connection = new Connection(process.env.CHAINSTACK_ENDPOINT! || clusterApiUrl("devnet"));
     const vault: VaultImpl = await VaultImpl.create(connection, SOL_TOKEN_INFO);
 
     // Create a transaction based on the action
