@@ -1,4 +1,4 @@
-For the full breakdown, see [Solana: Building Actions and Blinks](https://dash.readme.com/project/chainstack/v1.0/docs/solana-building-actions-and-blinks).
+For the full breakdown, see [Solana: Building Actions and Blinks](https://docs.chainstack.com/docs/solana-building-actions-and-blinks).
 ##
 This is a [Next.js](https://nextjs.org/) project bootstrapped with
 [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
