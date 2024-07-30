@@ -98,6 +98,10 @@ export const POST = async (req: Request) => {
     const connection = new Connection(process.env.CHAINSTACK_ENDPOINT! || clusterApiUrl("devnet"));
     const vault: VaultImpl = await VaultImpl.create(connection, SOL_TOKEN_INFO);
 
+    // Calculate virtual price using the vault's unlocked amount and lp supply
+    const vaultUnlockedAmount = (await vault.getWithdrawableAmount()).toNumber();
+    const virtualPrice = (vaultUnlockedAmount / vault.lpSupply.toNumber()) || 0;
+
     // Create a transaction based on the action
     let instruction!: Transaction;
     if (action === "deposit") {
@@ -108,10 +112,11 @@ export const POST = async (req: Request) => {
     } else if (action === "withdraw") {
       instruction = await vault.withdraw(
         userAccount,
-        new BN(amount * 10 ** SOL_TOKEN_INFO.decimals),
+        new BN((amount / virtualPrice) * 10 ** SOL_TOKEN_INFO.decimals),
       );
     }
 
+    // VersionedTransaction is supported as well
     const transaction = new Transaction();
     transaction.add(instruction);
 
