@@ -9,9 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mercurial-finance/vault-sdk": "^0.5.3",
+    "@mercurial-finance/vault-sdk": "^2.0.0",
     "@solana/actions": "^1.2.0",
-    "@solana/web3.js": "^1.95.1",
+    "@solana/web3.js": "^1.95.2",
     "bn.js": "^5.2.1",
     "next": "14.2.5",
     "react": "^18",
